@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault Sneakers - A Loja dos Tênis Mais Irados</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- aviso no topo -->
+    <div class="top-announcement">
+        <p>⚡ FRETE GRÁTIS EM MODELOS SELECIONADOS | PARCELE EM ATÉ 10X ⚡</p>
+    </div>
+
+    <header>
+        <div class="header-main">
+            <!-- menu + busca -->
+            <div class="header-left">
+                <div class="menu-btn" onclick="mudarPagina('home')">
+                    <span class="hamburger-icon">☰</span>
+                    <span class="menu-text">MENU</span>
+                </div>
+
+                <div class="search-box-clean">
+                    <span class="search-icon">🔍</span>
+                    <!-- A busca é ligada pelo script.js (sem onkeyup para não rodar 2x) -->
+                    <input type="text" id="input-busca" placeholder="BUSCAR">
+                </div>
+            </div>
+
+            <!-- logo -->
+            <div class="logo" onclick="mudarPagina('home')">
+                <img src="logo.jpeg" alt="Logo Vault Sneakers" onerror="this.style.display='none'">
+                <span>Vault Sneakers</span>
+            </div>
+
+            <!-- ícones da direita -->
+            <div class="header-right">
+                <div class="header-icons-group">
+                    <a onclick="mudarPagina('home')" title="Favoritos" class="icon-link">♡</a>
+                    <a onclick="mudarPagina('login')" title="Minha Conta" class="icon-link">🙎‍♂️</a>
+                    <!-- sacola -->
+                    <div class="cart-box" id="btn-carrinho" onclick="mudarPagina('carrinho')" title="Sacola">
+                        <span class="bag-icon">🛍️</span>
+                        <span class="cart-badge" id="cart-badge">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- links abaixo do logo -->
+        <nav class="header-nav">
+            <a onclick="mudarPagina('contato')" class="nav-text-link">FALE CONOSCO</a>
+            <a onclick="mudarPagina('home')" class="nav-text-link">NOSSAS LOJAS</a>
+            <a onclick="mudarPagina('home')" class="nav-btn-box">SEJA UM FRANQUEADO</a>
+        </nav>
+    </header>
+
+    <!-- home -->
+    <section id="home" class="page-section active">
+        <div class="hero">
+            <h1>O ESTILO QUE RODA COM VOCÊ</h1>
+            <p>Os tênis casuais mais irados das melhores marcas de Streetwear!</p>
+        </div>
+
+        <!-- carrossel (montado pelo script.js) -->
+        <div class="carousel" id="carrossel" aria-label="Tênis em destaque"></div>
+
+        <div class="catalog-header">
+            <h2>Lançamentos & Destaques</h2>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filtrarProdutos('todos', this)">Todos</button>
+                <button class="filter-btn" onclick="filtrarProdutos('Casual', this)">Casual</button>
+                <button class="filter-btn" onclick="filtrarProdutos('Esportivo', this)">Esportivo</button>
+                <button class="filter-btn" onclick="filtrarProdutos('Nike', this)">Nike</button>
+                <button class="filter-btn" onclick="filtrarProdutos('Air Force', this)">Air Force</button>
+                <button class="filter-btn" onclick="filtrarProdutos('Jordan', this)">Jordan</button>
+                <button class="filter-btn" onclick="filtrarProdutos('Air Max', this)">Air Max</button>
+            </div>
+        </div>
+
+        <div class="products-grid" id="grid-produtos">
+            <!-- preenchido pelo script.js -->
+        </div>
+    </section>
+
+    <!-- detalhes do produto -->
+    <section id="detalhes" class="page-section">
+        <a class="back-link" onclick="mudarPagina('home')">← Voltar para o catálogo</a>
+        <div class="product-detail-container" id="detalhes-conteudo">
+            <!-- preenchido pelo script.js -->
+        </div>
+    </section>
+
+    <!-- sacola -->
+    <section id="carrinho" class="page-section">
+        <a class="back-link" onclick="mudarPagina('home')">← Continuar Comprando</a>
+        <h2 class="cart-title">Sua Sacola de Compras</h2>
+
+        <div class="cart-container">
+            <div class="cart-items" id="cart-items-list">
+                <!-- itens da sacola -->
+            </div>
+
+            <div class="cart-summary">
+                <h3>Resumo do Pedido</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span id="cart-frete">—</span>
+                </div>
+                <hr>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span id="cart-total">R$ 0,00</span>
+                </div>
+                <button class="btn-buy" onclick="finalizarCompra()">Finalizar Compra</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- login -->
+    <section id="login" class="page-section">
+        <div class="form-box">
+            <h2>Acesse sua Conta</h2>
+            <form onsubmit="event.preventDefault(); alert('Login efetuado com sucesso!'); mudarPagina('home');">
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" required placeholder="seu@email.com">
+                </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" required placeholder="********">
+                </div>
+                <button type="submit" class="form-btn">Entrar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- fale conosco -->
+    <section id="contato" class="page-section">
+        <div class="form-box form-box-contato">
+            <h2>Fale Conosco</h2>
+            <p class="form-subtitle">
+                Envie sua dúvida, solicitação ou reclamação para a Vault Sneakers.
+            </p>
+
+            <form id="form-contato" novalidate>
+                <div class="input-group">
+                    <label for="contato-nome"></label>
+                    <input
+                        type="text"
+                        id="contato-nome"
+                        name="nome"
+                        required
+                        minlength="2"
+                        maxlength="100"
+                        placeholder="Nome completo"
+                        autocomplete="name">
+                    <small class="field-error"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="contato-email"></label>
+                    <input
+                        type="email"
+                        id="contato-email"
+                        name="email"
+                        required
+                        maxlength="150"
+                        placeholder="@email"
+                        autocomplete="email">
+                    <small class="field-error"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="contato-assunto">Assunto</label>
+                    <select id="contato-assunto" name="assunto" required>
+                        <option value="Dúvida sobre tamanhos">Dúvida sobre tamanhos</option>
+                        <option value="Entrega / Frete">Entrega / Frete</option>
+                        <option value="Meu pedido">Meu pedido</option>
+                        <option value="Troca ou devolução">Troca ou devolução</option>
+                        <option value="Reclamação">Reclamação</option>
+                        <option value="Outro assunto">Outro assunto</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="contato-mensagem"></label>
+                    <textarea
+                        id="contato-mensagem"
+                        name="mensagem"
+                        rows="4"
+                        required
+                        minlength="10"
+                        maxlength="1000"
+                        placeholder="Escreva sua mensagem..."></textarea>
+                    <small class="field-error"></small>
+                </div>
+
+
+                <button type="submit" class="form-btn" id="btn-enviar-contato">
+                   Enviar mensagem
+                </button>
+
+                <button
+                    type="button"
+                    class="form-btn btn-whatsapp"
+                    id="btn-whatsapp"
+                    style="display:none;">
+                    Enviar pelo WhatsApp
+                </button>
+
+                <div
+                    id="contato-status"
+                    class="form-status"
+                    role="status"
+                    aria-live="polite"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- rodapé -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Vault Sneakers</h3>
+                <p>A loja definitiva de sneakers e streetwear para quem busca exclusividade e atitude no visual.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Navegação</h3>
+                <ul>
+                    <li><a onclick="mudarPagina('home')">Lançamentos</a></li>
+                    <li><a onclick="mudarPagina('home')">Marcas</a></li>
+                    <li><a onclick="mudarPagina('contato')">Central de Ajuda</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Atendimento</h3>
+                <p>Segunda a Sexta: 09h às 18h</p>
+                <p>E-mail: contato@vaultsneakers.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vault Sneakers. Todos os direitos reservados. Projeto Jovens & Estilo.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

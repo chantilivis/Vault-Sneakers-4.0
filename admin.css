@@ -1,0 +1,448 @@
+:root {
+    --primary: #ff2a85;
+    --secondary: #7928ca;
+    --accent: #00dfd8;
+    --dark: #121214;
+    --light: #f8f9fa;
+    --card-bg: #f4f4f4;
+    --green-price: #00875a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif, Arial, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: var(--dark);
+}
+
+/* topo */
+header {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+    text-shadow: 2px 2px var(--accent);
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.nav-btn-box {
+    border: 1px solid white;
+    white-space: nowrap;
+    padding: 8px 14px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.nav-btn-box:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* topo do painel */
+.header-admin {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .header-admin {
+        padding: 0.7rem 1rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+        gap: 6px;
+    }
+
+    .logo img {
+        height: 28px;
+    }
+
+    .nav-btn-box {
+        font-size: 0.65rem;
+        padding: 5px 10px;
+    }
+}
+
+.page-section {
+    display: none;
+    padding: 2rem 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 80vh;
+}
+
+.page-section.active {
+    display: block;
+}
+
+/* Aviso (toast) */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--dark);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1000;
+    max-width: 90%;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* painel de reclamações (fale conosco) */
+
+.painel-reclamacoes {
+    width: calc(100% - 36px);
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 30px 0 50px;
+}
+
+.painel-titulo {
+    margin-bottom: 24px;
+}
+
+.painel-titulo h2 {
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.painel-titulo p,
+.painel-aviso {
+    color: #666;
+    line-height: 1.6;
+}
+
+.painel-layout {
+    display: grid;
+    grid-template-columns: minmax(230px, 3fr) minmax(0, 7fr);
+    gap: 22px;
+    align-items: start;
+}
+
+
+.indicadores-reclamacoes,
+.area-reclamacoes {
+    min-width: 0;
+    padding: 22px;
+    background: linear-gradient(to right, #7928ca, #ff2a85);
+    color: white;
+    border: 1px solid #e9e9e9;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+.indicadores-reclamacoes h3,
+.area-reclamacoes h3 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.indicadores-reclamacoes h3 {
+    margin-bottom: 18px;
+}
+
+.indicador-card {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 14px;
+    margin-bottom: 10px;
+    background: #f7f7f9;
+    border: 1px solid #ededf0;
+    border-radius: 10px;
+}
+
+.indicador-card span {
+    color: #62626b;
+    font-size: 0.86rem;
+    line-height: 1.4;
+}
+
+.indicador-card strong {
+    color: var(--secondary);
+    font-size: 1.45rem;
+    overflow-wrap: anywhere;
+}
+
+.painel-aviso {
+    margin: 16px 0 0;
+    font-size: 0.78rem;
+}
+
+.reclamacoes-cabecalho {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+#contador-reclamacoes {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+.lista-reclamacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 720px;
+    min-height: 180px;
+    overflow-y: auto;
+    padding: 2px 7px 2px 2px;
+    scrollbar-width: thin;
+}
+
+.reclamacoes-vazio {
+    display: grid;
+    place-items: center;
+    min-height: 170px;
+    padding: 20px;
+    text-align: center;
+    color: #777;
+    background: #fafafa;
+    border: 1px dashed #d7d7d7;
+    border-radius: 12px;
+}
+
+.reclamacao-card {
+    padding: 18px;
+    border: 1px solid #e5e5e9;
+    border-radius: 12px;
+    background: #fff;
+    overflow-wrap: anywhere;
+}
+
+.reclamacao-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.reclamacao-topo h4 {
+    margin: 0 0 5px;
+    font-size: 1rem;
+}
+
+.reclamacao-meta {
+    color: #777;
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+.reclamacao-assunto {
+    margin: 12px 0 6px;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.reclamacao-mensagem {
+    margin: 0 0 15px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.reclamacao-status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 30px;
+    background: #fff1d6;
+    color: #8a5b00;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.reclamacao-status.status-andamento {
+    background: #e8f1ff;
+    color: #2359a8;
+}
+
+.reclamacao-status.status-resolvida {
+    background: #e0f7e9;
+    color: #167443;
+}
+
+.reclamacao-admin {
+    display: grid;
+    gap: 10px;
+    padding-top: 15px;
+    margin-top: 14px;
+    border-top: 1px solid #ececf0;
+}
+
+.reclamacao-admin label {
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.reclamacao-admin textarea,
+.reclamacao-admin select,
+.reclamacao-admin input {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #d8d8df;
+    border-radius: 8px;
+    background: #fff;
+    font: inherit;
+}
+
+.reclamacao-admin textarea {
+    resize: vertical;
+}
+
+.reclamacao-admin button {
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--secondary);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.reclamacao-admin button:hover {
+    opacity: 0.88;
+}
+
+.reclamacao-resposta {
+    padding: 12px;
+    margin-top: 12px;
+    border-left: 3px solid var(--secondary);
+    background: #f7f4fc;
+    border-radius: 0 8px 8px 0;
+}
+
+.reclamacao-resposta strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.reclamacao-resposta p {
+    margin: 0;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.reclamacao-avaliacao {
+    margin-top: 10px;
+    color: #7a5600;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 800px) {
+    .painel-reclamacoes {
+        width: calc(100% - 24px);
+        padding-top: 22px;
+    }
+
+    .painel-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .indicadores-reclamacoes {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .indicadores-reclamacoes h3,
+    .indicadores-reclamacoes .painel-aviso {
+        grid-column: 1 / -1;
+    }
+
+    .indicadores-reclamacoes h3 {
+        margin-bottom: 5px;
+    }
+
+    .indicador-card {
+        margin-bottom: 0;
+        padding: 12px;
+    }
+
+    .indicador-card strong {
+        font-size: 1.25rem;
+    }
+
+    .lista-reclamacoes {
+        max-height: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .indicadores-reclamacoes,
+    .area-reclamacoes {
+        padding: 15px;
+    }
+
+    .indicador-card span {
+        font-size: 0.78rem;
+    }
+
+    .reclamacao-card {
+        padding: 14px;
+    }
+}
+
+/* botão de excluir */
+.reclamacao-admin .btn-excluir-reclamacao {
+    background: #b42318;
+}
+
+.reclamacao-admin .btn-excluir-reclamacao:hover {
+    background: #8f1d14;
+}

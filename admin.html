@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel da Loja - Vault Sneakers</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-admin">
+            <div class="logo">
+                <img src="logo.jpeg" alt="Logo Vault Sneakers" onerror="this.style.display='none'">
+                <span>Vault Sneakers</span>
+            </div>
+            <a href="index.html" class="nav-btn-box">VER LOJA</a>
+        </div>
+    </header>
+
+    <main class="page-section active">
+        <div class="painel-reclamacoes">
+            <div class="painel-titulo">
+                <h2>Central de Atendimento</h2>
+                <p>Acompanhe e administre as reclamações da Vault Sneakers.</p>
+            </div>
+
+            <div class="painel-layout">
+                <!-- indicadores -->
+                <aside class="indicadores-reclamacoes">
+                    <h3>Indicadores</h3>
+
+                    <div class="indicador-card">
+                        <span>Total de mensagens</span>
+                        <strong id="indicador-total">0</strong>
+                    </div>
+
+                    <div class="indicador-card">
+                        <span>Não respondidas</span>
+                        <strong id="indicador-pendentes">0</strong>
+                    </div>
+
+                    <div class="indicador-card">
+                        <span>Em andamento</span>
+                        <strong id="indicador-andamento">0</strong>
+                    </div>
+
+                    <div class="indicador-card">
+                        <span>Resolvidas</span>
+                        <strong id="indicador-resolvidas">0</strong>
+                    </div>
+
+                    <div class="indicador-card">
+                        <span>Sem resolução</span>
+                        <strong id="indicador-nao-resolvidas">0</strong>
+                    </div>
+
+                    <div class="indicador-card">
+                        <span>Taxa de resposta</span>
+                        <strong id="indicador-taxa-resposta">0%</strong>
+                    </div>
+
+                    <div class="indicador-card">
+                        <span>Tempo médio até a primeira resposta</span>
+                        <strong id="indicador-tempo-medio">—</strong>
+                    </div>
+
+                    <div class="indicador-card">
+                        <span>Avaliação média registrada</span>
+                        <strong id="indicador-avaliacao">—</strong>
+                    </div>
+
+                    <p class="painel-aviso">
+                        Os indicadores são calculados com base nos registros
+                        salvos neste navegador.
+                    </p>
+                </aside>
+
+                <!-- mensagens recebidas -->
+                <div class="area-reclamacoes">
+                    <div class="reclamacoes-cabecalho">
+                        <h3>Mensagens recebidas</h3>
+                        <span id="contador-reclamacoes">0 registros</span>
+                    </div>
+
+                    <div id="lista-reclamacoes" class="lista-reclamacoes">
+                        <div class="reclamacoes-vazio">
+                            <p>Nenhuma mensagem registrada ainda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>
