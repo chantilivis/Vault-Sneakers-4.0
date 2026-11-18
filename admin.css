@@ -66,7 +66,6 @@ header {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* topo do painel */
 .header-admin {
     max-width: 1400px;
     margin: 0 auto;
@@ -109,19 +108,19 @@ header {
     display: block;
 }
 
-/* Aviso (toast) */
+/* aviso (toast) */
 .toast {
     position: fixed;
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%) translateY(20px);
     background: var(--dark);
-    color: #fff;
+    color: #484747;
     padding: 12px 20px;
     border-radius: 8px;
     font-size: 0.9rem;
     font-weight: 600;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 20px rgba(239, 238, 238, 0.3);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s, transform 0.3s;
@@ -135,8 +134,7 @@ header {
     transform: translateX(-50%) translateY(0);
 }
 
-/* painel de reclamações (fale conosco) */
-
+/* painel de reclamações */
 .painel-reclamacoes {
     width: calc(100% - 36px);
     max-width: 1600px;
@@ -155,7 +153,7 @@ header {
 
 .painel-titulo p,
 .painel-aviso {
-    color: #666;
+    color: #b2afaf;
     line-height: 1.6;
 }
 
@@ -165,7 +163,6 @@ header {
     gap: 22px;
     align-items: start;
 }
-
 
 .indicadores-reclamacoes,
 .area-reclamacoes {
@@ -177,7 +174,6 @@ header {
     border-radius: 16px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
-
 
 .indicadores-reclamacoes h3,
 .area-reclamacoes h3 {
@@ -201,7 +197,7 @@ header {
 }
 
 .indicador-card span {
-    color: #62626b;
+    color: #484747;
     font-size: 0.86rem;
     line-height: 1.4;
 }
@@ -227,7 +223,7 @@ header {
 }
 
 #contador-reclamacoes {
-    color: #777;
+    color: #484747;
     font-size: 0.85rem;
 }
 
@@ -248,7 +244,7 @@ header {
     min-height: 170px;
     padding: 20px;
     text-align: center;
-    color: #777;
+    color: #484747;
     background: #fafafa;
     border: 1px dashed #d7d7d7;
     border-radius: 12px;
@@ -277,7 +273,7 @@ header {
 }
 
 .reclamacao-meta {
-    color: #777;
+    color: #fef5f5;
     font-size: 0.8rem;
     line-height: 1.6;
 }
@@ -320,7 +316,7 @@ header {
     gap: 10px;
     padding-top: 15px;
     margin-top: 14px;
-    border-top: 1px solid #ececf0;
+    border-top: 1px solid #b6b6fb;
 }
 
 .reclamacao-admin label {
@@ -363,7 +359,7 @@ header {
     padding: 12px;
     margin-top: 12px;
     border-left: 3px solid var(--secondary);
-    background: #f7f4fc;
+    background: #8b6ac3;
     border-radius: 0 8px 8px 0;
 }
 
@@ -380,7 +376,7 @@ header {
 
 .reclamacao-avaliacao {
     margin-top: 10px;
-    color: #7a5600;
+    color: #fffefd;
     font-size: 0.85rem;
 }
 
