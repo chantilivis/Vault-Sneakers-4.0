@@ -1,11 +1,9 @@
-// imagens
+// ---------- imagens ----------
 
-// monta a lista de fotos: img/prefixo-1.jpeg, img/prefixo-2.jpeg...
 function gerarImagens(prefixo, quantidade, extensao = "jpeg") {
   return Array.from({ length: quantidade }, (_, i) => `img/${prefixo}-${i + 1}.${extensao}`);
 }
 
-// imagem que aparece quando a foto não carrega
 const IMG_RESERVA =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
@@ -16,35 +14,65 @@ const IMG_RESERVA =
   );
 window.IMG_RESERVA = IMG_RESERVA;
 
-// loja
+// ---------- configurações da loja ----------
+
 const VALOR_FRETE = 29.90;
 const CHAVE_CARRINHO = "vault-carrinho-v2";
 
-// contato (configuração)
 const CONTATO = {
-  email: "contato@vaultsneakers.com",  // para onde vai o e-mail
-  whatsapp: "",                         // só números com DDI+DDD, ex.: "5511999999999" (vazio esconde o botão)
-  endpoint: ""                          // link do Formspree/Getform (opcional)
+  email: "contato@vaultsneakers.com",
+  whatsapp: "", // ex.: "5511999999999" (vazio esconde o botão)
+  endpoint: ""  // link do Formspree/Getform, se for usar
 };
 
-// carrossel (configuração)
-// nomes iguais aos de DADOS_PRODUTOS
-const CARROSSEL_NOMES = [
-  "Air force 1 low panda",          // Air Force (preto e branco)
-  "Nike Air Jordan 4 Bred",         // Jordan (vermelho e preto)
-  "Nike Air Max 95 Neon",           // Air Max (neon)
-  "Nike Dunk Low Varsity Green"     // Dunk (verde)
+// "nome" tem que ser igual ao de DADOS_PRODUTOS
+const CARROSSEL = [
+  { nome: "Air force 1 low panda",       foto: "img/Air_force_1_low_panda-carroseul.jpeg",       pos: "50% 60%" },
+  { nome: "Nike Air Jordan 4 Bred",      foto: "img/Nike_Air_Jordan_4_Bred-carroseul.jpeg",      pos: "58% 55%" },
+  { nome: "Nike Air Max 95 Neon",        foto: "img/Nike_Air_Max_95_Neon.jpeg",                  pos: "50% 70%" },
+  { nome: "Nike Dunk Low Varsity Green", foto: "img/Nike_Dunk_Low_Varsity_Green-carroseul.jpeg", pos: "50% 55%" }
 ];
-const CARROSSEL_INTERVALO = 4000; // tempo entre as trocas (ms)
+const CARROSSEL_INTERVALO = 4000;
 
-// produtos (os preços são calculados aqui)
+const BEST_SELLERS = [
+  "Air force 1 low panda",
+  "Nike Air Jordan 4 Bred",
+  "Nike Dunk Low Panda",
+  "Nike Air Max 95 Neon",
+  "Nike Air Jordan 4 Black Cat",
+  "Nike Air Max Dn Roam Black",
+  "Nike Shox R4 Black Pinksicle",
+  "Nike Court Vision Low"
+];
+
+const BEST_BANNER = "img/Nike_Air_Max_95_Neon.jpeg";
+
+const INEDITOS = [
+  "Nike Air Max Dn NRG Marrom",
+  "Nike Air Max Plus TN Hyper Pink Volt",
+  "Nike Air Max 95 Big Bubble Comet Red",
+  "Nike Air Jordan 4 Taupe Haze"
+];
+
+const CATEGORIAS_HOME = [
+  { filtro: "Air Force", rotulo: "Air Force", img: "img/Air-force-1-low-panda-1.jpeg" },
+  { filtro: "Jordan",    rotulo: "Jordan",    img: "img/Air-Jordan-4-bred-1.jpeg" },
+  { filtro: "Air Max",   rotulo: "Air Max",   img: "img/Air-Max-95-Neon-1.jpeg" },
+  { filtro: "Dunk",      rotulo: "Dunk",      img: "img/Dunk-Low-panda-1.jpeg" },
+  { filtro: "Shox",      rotulo: "Shox",      img: "img/Nike-Shox-R4-Blue-Lagoon-1.jpeg" },
+  { filtro: "Casual",    rotulo: "Casual",    img: "img/Nike-Court-Vision-Low-White-1.jpeg" }
+];
+
+// ---------- produtos ----------
+
 const DESCRICOES = {
   "Air Force": "O ícone do basquete que virou clássico das ruas: visual limpo, construção em couro e amortecimento Air para o dia todo.",
   "Jordan": "Herança do basquete em um design inconfundível. Conforto, estilo e a atitude Jordan em cada passo.",
   "Air Max": "Amortecimento Air visível e visual marcante, feito para quem quer conforto e presença em qualquer ocasião.",
   "Dunk": "Nascido nas quadras e adotado pela cultura de rua: silhueta clássica e combinações de cores que chamam atenção.",
   "Casual": "Estilo versátil para o dia a dia, combinando com qualquer look e confortável do começo ao fim do dia.",
-  "Shox": "Amortecimento com molas no calcanhar e visual futurista, direto do início dos anos 2000."
+  "Shox": "Amortecimento com molas no calcanhar e visual futurista, direto do início dos anos 2000.",
+  "Inédito": "Modelo exclusivo da Vault, em quantidade limitada. Você só encontra aqui."
 };
 
 function criarProduto(id, dados) {
@@ -74,14 +102,13 @@ function criarProduto(id, dados) {
   };
 }
 
-// catálogo
 // prefixo = nome da foto sem o "-número.jpeg"
 const DADOS_PRODUTOS = [
   // air force 1
   { nome: "Air force 1 low panda", freteGratis: true, categoria: "Air Force", prefixo: "Air-force-1-low-panda", qtd: 8, preco: 799.90, desconto: 20,
     descricao: "O brilho continua vivo no Nike Air force 1 low panda, o ícone do basquete que dá um toque moderno naquilo que você conhece bem." },
   { nome: "Nike Air Force 1 Low Blue White", categoria: "Air Force", prefixo: "Air-force-1-blue-white", qtd: 8, preco: 799.90, desconto: 0,
-    // a foto nº 1 tem o nome "Air-force-1 blue-&-white-1.jpeg" (com espaço e &)
+    // a primeira foto tem o nome "Air-force-1 blue-&-white-1.jpeg"
     imagens: ["img/Air-force-1 blue-&-white-1.jpeg", ...gerarImagens("Air-force-1-blue-white", 8).slice(1)] },
   { nome: "Nike Air Force 1 Low Triple Black", categoria: "Air Force", prefixo: "Air-force-1-triple-black", qtd: 8, preco: 799.90, desconto: 0 },
   { nome: "Nike Air Force 1 Low Triple White", categoria: "Air Force", prefixo: "Air-force-1-triple-white", qtd: 8, preco: 799.90, desconto: 10 },
@@ -125,10 +152,8 @@ const DADOS_PRODUTOS = [
   { nome: "Nike Dunk Low Syracuse", categoria: "Dunk", prefixo: "Dunk-Low-Syracuse", qtd: 8, preco: 899.90, desconto: 0 },
   { nome: "Nike Dunk Low Varsity Green", categoria: "Dunk", prefixo: "Dunk-Low-Varsity-Green", qtd: 8, preco: 899.90, desconto: 0 },
 
-  // air max excee
+  // casual
   { nome: "Nike Air Max Excee White Grey", categoria: "Casual", prefixo: "Nike-Air-Max-Excee-White-Grey", qtd: 6, preco: 599.90, desconto: 0 },
-
-  // court vision
   { nome: "Nike Court Vision Low", freteGratis: true, categoria: "Casual", prefixo: "Nike-Court-Vision-Low-White", qtd: 6, preco: 499.90, desconto: 10,
     descricao: "Combina o estilo de ataque do basquete dos anos 80 com a cultura acelerada do jogo atual." },
   { nome: "Nike Court Vision Alta Black White", categoria: "Casual", prefixo: "Nike-Court-Vision-Alta-Black-White", qtd: 6, preco: 549.90, desconto: 0 },
@@ -140,25 +165,23 @@ const DADOS_PRODUTOS = [
   { nome: "Nike Shox R4 Phantom Picante Red", categoria: "Shox", prefixo: "Nike-Shox-R4-Phantom-Picante-Red", qtd: 6, preco: 899.90, desconto: 0 },
   { nome: "Nike Shox R4 White Metallic", categoria: "Shox", prefixo: "Nike-Shox-R4-White-Metallic", qtd: 6, preco: 899.90, desconto: 0 }
 
-  // pendentes (nomes cortados no print; cole o nome completo e descomente)
-  // { nome: "Nike Air Max 95 Big Bubble Laser Paisley", categoria: "Air Max", prefixo: "Air-Max-95-Big-Bubble-Laser-Paisley-Gr...", qtd: 8, preco: 999.90, desconto: 0 },
-  // { nome: "Nike Air Max 95 Big Bubble SE Obsidian", categoria: "Air Max", prefixo: "Air-Max-95-Big-Bubble-SE-Obsidian-W...", qtd: 8, preco: 999.90, desconto: 0 },
-  // { nome: "Nike Air Max Plus TN Black Light Smoke Grey", categoria: "Air Max", prefixo: "Air-Max-Plus-Tn-Black-Light-Smoke-Gre...", qtd: 8, preco: 1099.90, desconto: 0 },
+  // TODO: faltam 3 modelos (Big Bubble Laser Paisley, Big Bubble SE Obsidian, Plus TN Black Light Smoke Grey)
 ];
 
 const produtos = DADOS_PRODUTOS.map((dados, i) => criarProduto(i + 1, dados));
 
-// estado
+// ---------- estado ----------
+
 let carrinho = [];
 let tamanhoSelecionado = null;
 let contadorItemCarrinho = 0;
 let filtroAtual = "todos";
 let termoBusca = "";
 
-// utilitários
-function formatarPreco(valor) {
-  return "R$ " + valor.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+// ---------- utilitários ----------
+
+const formatarPreco = (valor) =>
+  "R$ " + valor.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 function mostrarAviso(mensagem) {
   let toast = document.getElementById("toast");
@@ -174,34 +197,184 @@ function mostrarAviso(mensagem) {
   mostrarAviso._timer = setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-// navegação entre páginas
 function mudarPagina(idSecao) {
   const secaoAlvo = document.getElementById(idSecao);
   if (!secaoAlvo) return;
+  fecharMenu();
   document.querySelectorAll(".page-section").forEach(sec => sec.classList.remove("active"));
   secaoAlvo.classList.add("active");
   window.scrollTo(0, 0);
 }
 
-// filtros
+function abrirMenu() {
+  document.getElementById("drawer")?.classList.add("open");
+  document.getElementById("drawer-overlay")?.classList.add("open");
+}
+
+function fecharMenu() {
+  document.getElementById("drawer")?.classList.remove("open");
+  document.getElementById("drawer-overlay")?.classList.remove("open");
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") fecharMenu();
+});
+
+// ---------- filtros e home ----------
+
 function gerarFiltros() {
   const container = document.querySelector(".filters");
   if (!container) return;
 
   const categorias = [...new Set(produtos.map(p => p.categoria))];
-  const nomes = ["Todos", "Nike", ...categorias];
+  const itens = [
+    { rotulo: "Todos", valor: "todos" },
+    ...categorias.map(c => ({ rotulo: c, valor: c })),
+    { rotulo: "Outlet", valor: "outlet" },
+    { rotulo: "Frete grátis", valor: "frete" }
+  ];
 
-  container.innerHTML = nomes.map((nome, i) => {
-    const valor = nome === "Todos" ? "todos" : nome;
-    return `<button class="filter-btn${i === 0 ? " active" : ""}" data-filtro="${valor}">${nome}</button>`;
-  }).join("");
+  container.innerHTML = itens.map((it, i) =>
+    `<button class="filter-btn${i === 0 ? " active" : ""}" data-filtro="${it.valor}">${it.rotulo}</button>`
+  ).join("");
 
   container.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => filtrarProdutos(btn.dataset.filtro, btn));
   });
 }
 
-// lista de produtos
+function gerarCategoriasHome() {
+  const el = document.getElementById("cat-tiles");
+  if (!el) return;
+  el.innerHTML = CATEGORIAS_HOME.map(c => `
+    <a class="cat-tile" onclick="irParaCatalogo('${c.filtro}')">
+      <div class="cat-circle"><img src="${encodeURI(c.img)}" alt="${c.rotulo}" loading="lazy" onerror="this.onerror=null; this.src=IMG_RESERVA;"></div>
+      <span>${c.rotulo}</span>
+    </a>
+  `).join("");
+}
+
+function irParaCatalogo(filtro) {
+  const input = document.getElementById("input-busca");
+  if (input) input.value = "";
+  termoBusca = "";
+  mudarPagina("home");
+  const btn = [...document.querySelectorAll(".filter-btn")].find(b => b.dataset.filtro === filtro);
+  filtrarProdutos(filtro, btn || null);
+  document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" });
+}
+
+function buscaRapida(texto) {
+  const input = document.getElementById("input-busca");
+  if (input) input.value = texto;
+  filtrarProdutos("todos", document.querySelector('.filter-btn[data-filtro="todos"]'));
+  buscarProduto(texto);
+  document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" });
+}
+
+function cardProduto(prod, rank) {
+  const tagDesconto = prod.desconto ? `<span class="tag-off">${prod.desconto}</span>` : "";
+  const tagFrete = prod.freteGratis ? `<span class="tag-frete">FRETE GRÁTIS</span>` : "";
+  const precoDeHTML = prod.precoDe ? `<span class="price-old">${prod.precoDe}</span>` : "";
+  const precoPixHTML = prod.precoPix ? `<span class="price-promo">${prod.precoPix}</span>` : "";
+  const rankHTML = rank ? `<span class="rank-badge">${rank}</span>` : "";
+
+  return `
+    <div class="product-card" onclick="abrirDetalhes(${prod.id})">
+      <div class="card-top">
+        <div class="brand-badge">${prod.logoMarca}</div>
+        <div class="top-tags">
+          ${tagDesconto}
+          ${tagFrete}
+        </div>
+        ${rankHTML}
+        <img src="${encodeURI(prod.imagens[0])}" alt="${prod.nome}" loading="lazy" onerror="this.onerror=null; this.src=IMG_RESERVA;">
+      </div>
+      <div class="product-info-box">
+        <h3 class="product-title-text">${prod.nome}</h3>
+        <div class="price-row">
+          <span class="price-main">${prod.precoPor}</span>
+          ${precoDeHTML}
+          ${precoPixHTML}
+        </div>
+        <div class="price-installments">${prod.parcelas}</div>
+      </div>
+    </div>
+  `;
+}
+
+function gerarBestSellers() {
+  const track = document.getElementById("best-track");
+  if (!track) return;
+
+  const lista = BEST_SELLERS.map(n => produtos.find(p => p.nome === n)).filter(Boolean);
+  if (lista.length === 0) {
+    document.getElementById("bestsellers")?.remove();
+    return;
+  }
+
+  const banner = document.getElementById("best-banner-img");
+  if (banner) {
+    banner.src = encodeURI(BEST_BANNER);
+    banner.onerror = () => {
+      banner.onerror = null;
+      banner.src = encodeURI(lista[0].imagens[0]);
+    };
+  }
+
+  track.innerHTML = lista.map(p => `
+    <div class="best-item" onclick="abrirDetalhes(${p.id})">
+      <div class="best-item-img">
+        <img src="${encodeURI(p.imagens[0])}" alt="${p.nome}" loading="lazy" onerror="this.onerror=null; this.src=IMG_RESERVA;">
+      </div>
+      <span class="best-brand">${p.marca}</span>
+      <h3 class="best-name" title="${p.nome}">${p.nome}</h3>
+      <strong class="best-price">${p.precoPor}</strong>
+    </div>
+  `).join("");
+}
+
+function rolarBest(direcao) {
+  const track = document.getElementById("best-track");
+  if (!track) return;
+  track.scrollBy({ left: direcao * track.clientWidth * 0.85, behavior: "smooth" });
+}
+
+function gerarIneditos() {
+  const grid = document.getElementById("ineditos-grid");
+  const bloco = document.getElementById("ineditos");
+  if (!grid) return;
+
+  const lista = INEDITOS.map(n => produtos.find(p => p.nome === n)).filter(Boolean);
+  if (lista.length === 0) {
+    bloco?.remove();
+    return;
+  }
+
+  grid.innerHTML = lista.map(p => `
+    <div class="inedito-card" onclick="abrirDetalhes(${p.id})">
+      <span class="inedito-badge">INÉDITO</span>
+      ${p.freteGratis ? '<span class="inedito-frete">FRETE GRÁTIS</span>' : ""}
+      <div class="inedito-img">
+        <img src="${encodeURI(p.imagens[0])}" alt="${p.nome}" loading="lazy" onerror="this.onerror=null; this.src=IMG_RESERVA;">
+      </div>
+      <div class="inedito-info">
+        <span class="inedito-marca">${p.marca}</span>
+        <h3>${p.nome}</h3>
+        <strong>${p.precoPor}</strong>
+        <small>${p.parcelas}</small>
+      </div>
+    </div>
+  `).join("");
+}
+
+function irParaInedito() {
+  mudarPagina("home");
+  document.getElementById("ineditos")?.scrollIntoView({ behavior: "smooth" });
+}
+
+// ---------- vitrine, busca e filtro ----------
+
 function renderizarProdutos(lista) {
   const grid = document.getElementById("grid-produtos");
   if (!grid) return;
@@ -211,37 +384,9 @@ function renderizarProdutos(lista) {
     return;
   }
 
-  grid.innerHTML = lista.map(prod => {
-    const tagDesconto = prod.desconto ? `<span class="tag-off">${prod.desconto}</span>` : "";
-    const tagFrete = prod.freteGratis ? `<span class="tag-frete">FRETE GRÁTIS</span>` : "";
-    const precoDeHTML = prod.precoDe ? `<span class="price-old">${prod.precoDe}</span>` : "";
-    const precoPixHTML = prod.precoPix ? `<span class="price-promo">${prod.precoPix}</span>` : "";
-
-    return `
-      <div class="product-card" onclick="abrirDetalhes(${prod.id})">
-        <div class="card-top">
-          <div class="brand-badge">${prod.logoMarca}</div>
-          <div class="top-tags">
-            ${tagDesconto}
-            ${tagFrete}
-          </div>
-          <img src="${encodeURI(prod.imagens[0])}" alt="${prod.nome}" loading="lazy" onerror="this.onerror=null; this.src=IMG_RESERVA;">
-        </div>
-        <div class="product-info-box">
-          <h3 class="product-title-text">${prod.nome}</h3>
-          <div class="price-row">
-            <span class="price-main">${prod.precoPor}</span>
-            ${precoDeHTML}
-            ${precoPixHTML}
-          </div>
-          <div class="price-installments">${prod.parcelas}</div>
-        </div>
-      </div>
-    `;
-  }).join("");
+  grid.innerHTML = lista.map(prod => cardProduto(prod)).join("");
 }
 
-// busca + filtro
 function aplicarFiltros() {
   const termo = termoBusca.toLowerCase().trim();
   const filtro = filtroAtual.toLowerCase();
@@ -249,6 +394,8 @@ function aplicarFiltros() {
   const resultado = produtos.filter(p => {
     const passaFiltro =
       filtro === "todos" ||
+      (filtro === "outlet" && p.desconto !== "") ||
+      (filtro === "frete" && p.freteGratis) ||
       p.categoria.toLowerCase() === filtro ||
       p.marca.toLowerCase() === filtro;
 
@@ -277,7 +424,8 @@ function filtrarProdutos(filtro, elementoBotao) {
   aplicarFiltros();
 }
 
-// detalhes do produto
+// ---------- página do produto ----------
+
 function abrirDetalhes(id) {
   const prod = produtos.find(p => p.id === id);
   if (!prod) return;
@@ -286,7 +434,6 @@ function abrirDetalhes(id) {
   const container = document.getElementById("detalhes-conteudo");
   if (!container) return;
 
-  // se a foto não existir, a miniatura some
   const thumbsHTML = prod.imagens.map((img, index) =>
     `<img src="${encodeURI(img)}" data-src="${encodeURI(img)}" class="${index === 0 ? "active-thumb" : ""}" onclick="trocarFotoPrincipal(this)" onerror="this.remove()" alt="Foto ${index + 1} de ${prod.nome}">`
   ).join("");
@@ -340,21 +487,24 @@ function selecionarTamanho(elementoBtn, tamanho) {
   tamanhoSelecionado = tamanho;
 }
 
-// carrinho
+// ---------- carrinho ----------
+
 function salvarCarrinho() {
   try {
     localStorage.setItem(CHAVE_CARRINHO, JSON.stringify(carrinho));
-  } catch (e) { /* storage indisponível */ }
+  } catch (e) {}
 }
 
 function carregarCarrinho() {
   try {
     const salvo = JSON.parse(localStorage.getItem(CHAVE_CARRINHO));
     if (!Array.isArray(salvo)) return;
-    // recarrega os dados atuais do produto (preço, frete) e mantém tamanho/id do item
+
+    // pega os dados atuais do produto, mas mantém tamanho e id do item salvo
     carrinho = salvo
       .filter(item => produtos.some(p => p.id === item.id && p.nome === item.nome))
       .map(item => ({ ...produtos.find(p => p.id === item.id), tamanho: item.tamanho, cartItemId: item.cartItemId }));
+
     contadorItemCarrinho = carrinho.reduce((max, item) => Math.max(max, item.cartItemId || 0), 0);
   } catch (e) {
     carrinho = [];
@@ -439,22 +589,58 @@ function finalizarCompra() {
   mudarPagina("home");
 }
 
-// carrossel
+// ---------- carrossel ----------
+
+// tenta algumas grafias do nome do arquivo antes de desistir
+function candidatosFoto(caminho) {
+  const dir = caminho.slice(0, caminho.lastIndexOf("/") + 1);
+  const nome = caminho.slice(dir.length);
+  const variacoes = new Set([
+    nome,
+    nome.replace(/_/g, " "),
+    nome.replace(/_/g, "-"),
+    nome.replace(/_/g, " ").replace("-carroseul", " carroseul"),
+    nome.replace("-carroseul", "-carrossel"),
+    nome.replace(/_/g, " ").replace("-carroseul", "-carrossel"),
+    nome.toLowerCase(),
+    nome.replace(/\.jpeg$/i, ".jpg")
+  ]);
+  return [...variacoes].map(n => dir + n);
+}
+
+function tentarProximaFoto(img) {
+  const lista = (img.dataset.cands || "").split("|").filter(Boolean);
+  const i = Number(img.dataset.i || 0);
+  if (i < lista.length) {
+    img.dataset.i = i + 1;
+    img.src = encodeURI(lista[i]);
+  } else {
+    img.onerror = null;
+    img.src = img.dataset.fallback || IMG_RESERVA;
+  }
+}
+
 function iniciarCarrossel() {
   const el = document.getElementById("carrossel");
   if (!el) return;
 
   const vistos = new Set();
-  const itens = CARROSSEL_NOMES
-    .map(nome => produtos.find(p => p.nome === nome))
+  const itens = CARROSSEL
+    .map(c => {
+      const p = produtos.find(prod => prod.nome === c.nome);
+      return p ? { ...p, fotoBanner: c.foto || p.imagens[0], posFoto: c.pos || "50% 50%" } : null;
+    })
     .filter(p => {
-      if (!p || vistos.has(p.id) || vistos.has(p.imagens[0])) return false;
+      if (!p || vistos.has(p.id)) return false;
       vistos.add(p.id);
-      vistos.add(p.imagens[0]);
       return true;
     })
     .slice(0, 4);
-  if (itens.length === 0) { el.style.display = "none"; return; }
+
+  if (itens.length === 0) {
+    el.style.display = "none";
+    return;
+  }
 
   const slides = itens.map(p => `
     <div class="carousel-slide">
@@ -462,11 +648,10 @@ function iniciarCarrossel() {
         <span class="slide-tag">${p.marca} • ${p.categoria}</span>
         <h3 class="slide-title">${p.nome}</h3>
         ${p.desconto ? `<span class="slide-off">${p.desconto}</span>` : ""}
-        <p class="slide-price">a partir de <strong>${p.precoPor}</strong></p>
         <button type="button" class="carousel-cta" onclick="abrirDetalhes(${p.id})">confira já!</button>
       </div>
       <div class="slide-img">
-        <img src="${encodeURI(p.imagens[0])}" alt="${p.nome}" onerror="this.onerror=null; this.src=IMG_RESERVA;">
+        <img src="${encodeURI(candidatosFoto(p.fotoBanner)[0])}" data-cands="${candidatosFoto(p.fotoBanner).join('|')}" data-i="1" data-fallback="${encodeURI(p.imagens[0])}" alt="${p.nome}" style="object-position:${p.posFoto}" onerror="tentarProximaFoto(this)">
       </div>
     </div>
   `).join("");
@@ -494,23 +679,30 @@ function iniciarCarrossel() {
   }
 
   const reduzirMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   function iniciarAuto() {
     pararAuto();
     if (!reduzirMovimento) timer = setInterval(() => ir(atual + 1), CARROSSEL_INTERVALO);
   }
-  function pararAuto() { clearInterval(timer); }
+
+  function pararAuto() {
+    clearInterval(timer);
+  }
 
   el.querySelector(".prev").addEventListener("click", () => { ir(atual - 1); iniciarAuto(); });
   el.querySelector(".next").addEventListener("click", () => { ir(atual + 1); iniciarAuto(); });
   dots.forEach((d, i) => d.addEventListener("click", () => { ir(i); iniciarAuto(); }));
 
-  // pausa com o mouse em cima
   el.addEventListener("mouseenter", pararAuto);
   el.addEventListener("mouseleave", iniciarAuto);
 
-  // arrastar com o dedo no celular
+  // swipe no celular
   let inicioX = null;
-  el.addEventListener("touchstart", (e) => { inicioX = e.touches[0].clientX; pararAuto(); }, { passive: true });
+  el.addEventListener("touchstart", (e) => {
+    inicioX = e.touches[0].clientX;
+    pararAuto();
+  }, { passive: true });
+
   el.addEventListener("touchend", (e) => {
     if (inicioX !== null) {
       const dx = e.changedTouches[0].clientX - inicioX;
@@ -523,7 +715,47 @@ function iniciarCarrossel() {
   iniciarAuto();
 }
 
-// fale conosco (a mensagem fica salva e aparece no painel da loja, em admin.html)
+// ---------- helpers dos formulários ----------
+
+function mostrarStatusForm(el, texto, tipo) {
+  if (!el) return;
+  el.textContent = texto;
+  el.className = "form-status " + tipo;
+}
+
+// regras = [{ campo, ok, msg }]
+function validarCampos(regras) {
+  let tudoOk = true;
+
+  regras.forEach(regra => {
+    const grupo = regra.campo.closest(".input-group");
+    if (!grupo) return;
+
+    grupo.classList.toggle("invalid", !regra.ok);
+    const erro = grupo.querySelector(".field-error");
+    if (erro) erro.textContent = regra.ok ? "" : regra.msg;
+
+    if (!regra.ok) tudoOk = false;
+  });
+
+  return tudoOk;
+}
+
+function limparErroAoDigitar(form) {
+  form.querySelectorAll("input, textarea").forEach(campo => {
+    campo.addEventListener("input", () => {
+      const grupo = campo.closest(".input-group");
+      grupo?.classList.remove("invalid");
+      const erro = grupo?.querySelector(".field-error");
+      if (erro) erro.textContent = "";
+    });
+  });
+}
+
+const emailValido = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+
+// ---------- fale conosco ----------
+
 const CHAVE_RECLAMACOES = "vault-reclamacoes-v1";
 
 function carregarReclamacoes() {
@@ -548,94 +780,50 @@ function salvarReclamacoes(reclamacoes) {
 function iniciarFormContato() {
   const form = document.getElementById("form-contato");
   if (!form) return;
+  if (form.dataset.iniciado === "true") return;
+  form.dataset.iniciado = "true";
 
   const status = document.getElementById("contato-status");
   const btnEnviar = document.getElementById("btn-enviar-contato");
   const btnWhats = document.getElementById("btn-whatsapp");
+  const campo = (nome) => form.elements.namedItem(nome);
 
-  if (form.dataset.iniciado === "true") return;
-  form.dataset.iniciado = "true";
-
-  if (CONTATO.whatsapp && btnWhats) {
-    btnWhats.style.display = "block";
-  }
-
-  const mostrarStatus = (texto, tipo) => {
-    if (!status) return;
-    status.textContent = texto;
-    status.className = "form-status " + tipo;
-  };
+  if (CONTATO.whatsapp && btnWhats) btnWhats.style.display = "block";
 
   const pegarDados = () => ({
-    nome: form.elements.namedItem("nome").value.trim(),
-    email: form.elements.namedItem("email").value.trim(),
-    assunto: form.elements.namedItem("assunto").value,
-    mensagem: form.elements.namedItem("mensagem").value.trim()
+    nome: campo("nome").value.trim(),
+    email: campo("email").value.trim(),
+    assunto: campo("assunto").value,
+    mensagem: campo("mensagem").value.trim()
   });
 
-  function validar() {
+  const validar = () => {
     const d = pegarDados();
+    return validarCampos([
+      { campo: campo("nome"), ok: d.nome.length >= 2, msg: "Digite seu nome com pelo menos 2 caracteres." },
+      { campo: campo("email"), ok: emailValido(d.email), msg: "Digite um e-mail válido." },
+      { campo: campo("mensagem"), ok: d.mensagem.length >= 10, msg: "Escreva pelo menos 10 caracteres." }
+    ]);
+  };
 
-    const regras = [
-      {
-        campo: form.elements.namedItem("nome"),
-        ok: d.nome.length >= 2,
-        msg: "Digite seu nome com pelo menos 2 caracteres."
-      },
-      {
-        campo: form.elements.namedItem("email"),
-        ok: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email),
-        msg: "Digite um e-mail válido."
-      },
-      {
-        campo: form.elements.namedItem("mensagem"),
-        ok: d.mensagem.length >= 10,
-        msg: "Escreva pelo menos 10 caracteres."
-      }
-    ];
-
-    let tudoOk = true;
-
-    regras.forEach(regra => {
-      const grupo = regra.campo.closest(".input-group");
-      if (!grupo) return;
-
-      grupo.classList.toggle("invalid", !regra.ok);
-
-      const erro = grupo.querySelector(".field-error");
-      if (erro) erro.textContent = regra.ok ? "" : regra.msg;
-
-      if (!regra.ok) tudoOk = false;
-    });
-
-    return tudoOk;
-  }
-
-  form.querySelectorAll("input, textarea").forEach(campo => {
-    campo.addEventListener("input", () => {
-      campo.closest(".input-group")?.classList.remove("invalid");
-      const erro = campo.closest(".input-group")?.querySelector(".field-error");
-      if (erro) erro.textContent = "";
-    });
-  });
-
-  const montarTexto = d =>
+  const montarTexto = (d) =>
     `Nome: ${d.nome}\nE-mail: ${d.email}\nAssunto: ${d.assunto}\n\n${d.mensagem}`;
 
-  form.addEventListener("submit", async evento => {
+  limparErroAoDigitar(form);
+
+  form.addEventListener("submit", async (evento) => {
     evento.preventDefault();
-    mostrarStatus("", "");
+    mostrarStatusForm(status, "", "");
 
+    // campo escondido: se vier preenchido, é robô
     const campoIsca = document.getElementById("contato-site");
-
-    // anti-spam
     if (campoIsca && campoIsca.value) return;
     if (!validar()) return;
 
     const d = pegarDados();
     const reclamacoes = carregarReclamacoes();
 
-    const reclamacao = {
+    reclamacoes.push({
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       nome: d.nome,
       email: d.email,
@@ -646,15 +834,10 @@ function iniciarFormContato() {
       resposta: "",
       primeiraRespostaEm: null,
       avaliacao: 0
-    };
-
-    reclamacoes.push(reclamacao);
+    });
 
     if (!salvarReclamacoes(reclamacoes)) {
-      mostrarStatus(
-        "Não foi possível enviar sua mensagem agora. Tente novamente.",
-        "erro"
-      );
+      mostrarStatusForm(status, "Não foi possível enviar sua mensagem agora. Tente novamente.", "erro");
       return;
     }
 
@@ -667,10 +850,7 @@ function iniciarFormContato() {
       try {
         const resposta = await fetch(CONTATO.endpoint, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
           body: JSON.stringify({
             nome: d.nome,
             email: d.email,
@@ -680,41 +860,24 @@ function iniciarFormContato() {
         });
 
         if (!resposta.ok) throw new Error("Falha no envio externo");
-
-        mostrarStatus(
-          "Mensagem enviada! Responderemos em breve.",
-          "ok"
-        );
+        mostrarStatusForm(status, "Mensagem enviada! Responderemos em breve.", "ok");
       } catch (erro) {
-        mostrarStatus(
-          "Não foi possível enviar agora. Tente novamente ou use o e-mail " + CONTATO.email,
-          "erro"
-        );
+        mostrarStatusForm(status, "Não foi possível enviar agora. Tente novamente ou use o e-mail " + CONTATO.email, "erro");
       } finally {
         btnEnviar.disabled = false;
         btnEnviar.textContent = "Enviar mensagem";
       }
-
       return;
     }
 
-    // sem endpoint: abre o programa de e-mail
+    // sem endpoint, abre o app de e-mail
     if (CONTATO.email) {
       const assuntoEmail = encodeURIComponent(`[Vault Sneakers] ${d.assunto}`);
       const corpo = encodeURIComponent(montarTexto(d));
-
-      window.location.href =
-        `mailto:${CONTATO.email}?subject=${assuntoEmail}&body=${corpo}`;
-
-      mostrarStatus(
-        "Mensagem enviada! Se o aplicativo de e-mail abrir, é só enviar por lá também.",
-        "ok"
-      );
+      window.location.href = `mailto:${CONTATO.email}?subject=${assuntoEmail}&body=${corpo}`;
+      mostrarStatusForm(status, "Mensagem enviada! Se o aplicativo de e-mail abrir, é só enviar por lá também.", "ok");
     } else {
-      mostrarStatus(
-        "Mensagem registrada! Responderemos em breve.",
-        "ok"
-      );
+      mostrarStatusForm(status, "Mensagem registrada! Responderemos em breve.", "ok");
     }
   });
 
@@ -724,29 +887,142 @@ function iniciarFormContato() {
       if (!validar()) return;
 
       const texto = encodeURIComponent(montarTexto(pegarDados()));
-
-      window.open(
-        `https://wa.me/${CONTATO.whatsapp}?text=${texto}`,
-        "_blank",
-        "noopener"
-      );
-
-      mostrarStatus(
-        "A mensagem foi preparada no WhatsApp. Confira e envie pelo aplicativo.",
-        "ok"
-      );
+      window.open(`https://wa.me/${CONTATO.whatsapp}?text=${texto}`, "_blank", "noopener");
+      mostrarStatusForm(status, "A mensagem foi preparada no WhatsApp. Confira e envie pelo aplicativo.", "ok");
     });
   }
 }
 
-// inicialização
+// ---------- seja um franqueado ----------
+
+const CHAVE_FRANQUIAS = "vault-franquias-v1";
+
+function carregarFranquias() {
+  try {
+    const dados = JSON.parse(localStorage.getItem(CHAVE_FRANQUIAS));
+    return Array.isArray(dados) ? dados : [];
+  } catch (erro) {
+    return [];
+  }
+}
+
+function salvarFranquias(lista) {
+  try {
+    localStorage.setItem(CHAVE_FRANQUIAS, JSON.stringify(lista));
+    return true;
+  } catch (erro) {
+    return false;
+  }
+}
+
+function iniciarFormFranquia() {
+  const form = document.getElementById("form-franquia");
+  if (!form) return;
+
+  const status = document.getElementById("franquia-status");
+  const btn = document.getElementById("btn-enviar-franquia");
+  const campo = (nome) => form.elements.namedItem(nome);
+
+  const pegarDados = () => ({
+    nome: campo("nome").value.trim(),
+    email: campo("email").value.trim(),
+    telefone: campo("telefone").value.trim(),
+    cidade: campo("cidade").value.trim(),
+    investimento: campo("investimento").value,
+    ponto: campo("ponto").value,
+    mensagem: campo("mensagem").value.trim()
+  });
+
+  // máscara: (11) 99999-9999
+  campo("telefone").addEventListener("input", (e) => {
+    let v = e.target.value.replace(/\D/g, "").slice(0, 11);
+    if (v.length > 6) v = `(${v.slice(0, 2)}) ${v.slice(2, v.length - 4)}-${v.slice(-4)}`;
+    else if (v.length > 2) v = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    e.target.value = v;
+  });
+
+  const validar = () => {
+    const d = pegarDados();
+    const digitos = d.telefone.replace(/\D/g, "");
+    return validarCampos([
+      { campo: campo("nome"), ok: d.nome.length >= 2, msg: "Digite seu nome completo." },
+      { campo: campo("email"), ok: emailValido(d.email), msg: "Digite um e-mail válido." },
+      { campo: campo("telefone"), ok: digitos.length >= 10, msg: "Digite um telefone com DDD." },
+      { campo: campo("cidade"), ok: d.cidade.length >= 2, msg: "Informe a cidade onde deseja abrir." }
+    ]);
+  };
+
+  const montarTexto = (d) =>
+    `Nome: ${d.nome}\nE-mail: ${d.email}\nTelefone: ${d.telefone}\nCidade/UF: ${d.cidade}\n` +
+    `Capital: ${d.investimento}\nPonto comercial: ${d.ponto}\n\n${d.mensagem || "(sem mensagem)"}`;
+
+  limparErroAoDigitar(form);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    mostrarStatusForm(status, "", "");
+    if (!validar()) return;
+
+    const d = pegarDados();
+    const lista = carregarFranquias();
+    lista.push({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      ...d,
+      status: "Novo",
+      criadaEm: new Date().toISOString()
+    });
+
+    if (!salvarFranquias(lista)) {
+      mostrarStatusForm(status, "Não foi possível enviar agora. Tente novamente.", "erro");
+      return;
+    }
+
+    form.reset();
+
+    if (CONTATO.endpoint) {
+      btn.disabled = true;
+      btn.textContent = "Enviando...";
+
+      try {
+        const r = await fetch(CONTATO.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({ tipo: "Franquia", ...d })
+        });
+        if (!r.ok) throw new Error("falha");
+        mostrarStatusForm(status, "Recebemos seu interesse! Nossa equipe entrará em contato em breve.", "ok");
+      } catch (err) {
+        mostrarStatusForm(status, "Não foi possível enviar agora. Escreva para " + CONTATO.email, "erro");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Enviar interesse";
+      }
+      return;
+    }
+
+    if (CONTATO.email) {
+      const assunto = encodeURIComponent("[Vault Sneakers] Interesse em franquia");
+      const corpo = encodeURIComponent(montarTexto(d));
+      window.location.href = `mailto:${CONTATO.email}?subject=${assunto}&body=${corpo}`;
+    }
+    mostrarStatusForm(status, "Recebemos seu interesse! Nossa equipe entrará em contato em breve.", "ok");
+  });
+}
+
+// ---------- inicialização ----------
+
 document.addEventListener("DOMContentLoaded", () => {
   carregarCarrinho();
   atualizarCarrinho();
   gerarFiltros();
+  gerarCategoriasHome();
+  gerarBestSellers();
+  gerarIneditos();
   aplicarFiltros();
   iniciarCarrossel();
   iniciarFormContato();
+  iniciarFormFranquia();
 
   const inputBusca = document.getElementById("input-busca");
   if (inputBusca) {
