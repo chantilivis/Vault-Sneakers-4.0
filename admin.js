@@ -1,4 +1,3 @@
-// aviso rápido na tela
 function mostrarAviso(mensagem) {
   let toast = document.getElementById("toast");
   if (!toast) {
@@ -13,7 +12,7 @@ function mostrarAviso(mensagem) {
   mostrarAviso._timer = setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-// mensagens (mesma chave que o site da loja usa para salvar)
+// mesma chave que o site da loja usa para salvar
 const CHAVE_RECLAMACOES = "vault-reclamacoes-v1";
 
 function escaparHTML(valor) {
@@ -231,100 +230,100 @@ function atualizarPainelReclamacoes() {
   }).join("");
 }
 
-// ligações do painel
 function iniciarPainel() {
   const lista = document.getElementById("lista-reclamacoes");
 
   atualizarPainelReclamacoes();
 
-  // ações do painel: excluir, responder, status e avaliação
-  if (lista) {
-    lista.addEventListener("click", evento => {
-      const botaoExcluir = evento.target.closest('button[data-acao="excluir"]');
+  if (!lista) return;
 
-      if (botaoExcluir) {
-        const cartao = botaoExcluir.closest(".reclamacao-card");
-        if (!cartao) return;
+  // clique: excluir ou responder
+  lista.addEventListener("click", evento => {
+    const botaoExcluir = evento.target.closest('button[data-acao="excluir"]');
 
-        const id = cartao.dataset.id;
-
-        if (!confirm("Tem certeza de que deseja excluir esta reclamação? Essa ação não pode ser desfeita.")) {
-          return;
-        }
-
-        const reclamacoes = carregarReclamacoes();
-        const atualizadas = reclamacoes.filter(r => r.id !== id);
-
-        if (atualizadas.length === reclamacoes.length) return;
-        if (!salvarReclamacoes(atualizadas)) return;
-
-        atualizarPainelReclamacoes();
-        mostrarAviso("Reclamação excluída.");
-        return;
-      }
-
-      const botao = evento.target.closest('button[data-acao="responder"]');
-      if (!botao) return;
-
-      const cartao = botao.closest(".reclamacao-card");
+    if (botaoExcluir) {
+      const cartao = botaoExcluir.closest(".reclamacao-card");
       if (!cartao) return;
 
       const id = cartao.dataset.id;
-      const campoResposta = cartao.querySelector("[data-resposta]");
-      const textoResposta = campoResposta?.value.trim();
 
-      if (!textoResposta) {
-        mostrarAviso("Digite uma resposta antes de registrá-la.");
-        campoResposta?.focus();
+      if (!confirm("Tem certeza de que deseja excluir esta reclamação? Essa ação não pode ser desfeita.")) {
         return;
       }
 
       const reclamacoes = carregarReclamacoes();
-      const reclamacao = reclamacoes.find(r => r.id === id);
-      if (!reclamacao) return;
+      const atualizadas = reclamacoes.filter(r => r.id !== id);
 
-      reclamacao.resposta = textoResposta;
-
-      // só a primeira resposta conta para o tempo
-      if (!reclamacao.primeiraRespostaEm) {
-        reclamacao.primeiraRespostaEm = new Date().toISOString();
-      }
-
-      if (!salvarReclamacoes(reclamacoes)) return;
+      if (atualizadas.length === reclamacoes.length) return;
+      if (!salvarReclamacoes(atualizadas)) return;
 
       atualizarPainelReclamacoes();
-      mostrarAviso("Resposta registrada no painel local.");
-    });
+      mostrarAviso("Reclamação excluída.");
+      return;
+    }
 
-    lista.addEventListener("change", evento => {
-      const campo = evento.target.closest("select[data-acao]");
-      if (!campo) return;
+    const botao = evento.target.closest('button[data-acao="responder"]');
+    if (!botao) return;
 
-      const cartao = campo.closest(".reclamacao-card");
-      if (!cartao) return;
+    const cartao = botao.closest(".reclamacao-card");
+    if (!cartao) return;
 
-      const id = cartao.dataset.id;
-      const reclamacoes = carregarReclamacoes();
-      const reclamacao = reclamacoes.find(r => r.id === id);
-      if (!reclamacao) return;
+    const id = cartao.dataset.id;
+    const campoResposta = cartao.querySelector("[data-resposta]");
+    const textoResposta = campoResposta?.value.trim();
 
-      if (campo.dataset.acao === "status") {
-        reclamacao.status = campo.value;
-      } else if (campo.dataset.acao === "avaliacao") {
-        reclamacao.avaliacao = Number(campo.value) || 0;
-      } else {
-        return;
-      }
+    if (!textoResposta) {
+      mostrarAviso("Digite uma resposta antes de registrá-la.");
+      campoResposta?.focus();
+      return;
+    }
 
-      if (!salvarReclamacoes(reclamacoes)) return;
+    const reclamacoes = carregarReclamacoes();
+    const reclamacao = reclamacoes.find(r => r.id === id);
+    if (!reclamacao) return;
 
-      atualizarPainelReclamacoes();
-      mostrarAviso("Informações da reclamação atualizadas.");
-    });
-  }
+    reclamacao.resposta = textoResposta;
+
+    // só a primeira resposta conta para o tempo médio
+    if (!reclamacao.primeiraRespostaEm) {
+      reclamacao.primeiraRespostaEm = new Date().toISOString();
+    }
+
+    if (!salvarReclamacoes(reclamacoes)) return;
+
+    atualizarPainelReclamacoes();
+    mostrarAviso("Resposta registrada no painel local.");
+  });
+
+  // mudança nos selects: status e avaliação
+  lista.addEventListener("change", evento => {
+    const campo = evento.target.closest("select[data-acao]");
+    if (!campo) return;
+
+    const cartao = campo.closest(".reclamacao-card");
+    if (!cartao) return;
+
+    const id = cartao.dataset.id;
+    const reclamacoes = carregarReclamacoes();
+    const reclamacao = reclamacoes.find(r => r.id === id);
+    if (!reclamacao) return;
+
+    if (campo.dataset.acao === "status") {
+      reclamacao.status = campo.value;
+    } else if (campo.dataset.acao === "avaliacao") {
+      reclamacao.avaliacao = Number(campo.value) || 0;
+    } else {
+      return;
+    }
+
+    if (!salvarReclamacoes(reclamacoes)) return;
+
+    atualizarPainelReclamacoes();
+    mostrarAviso("Informações da reclamação atualizadas.");
+  });
 }
 
-// se chegar mensagem nova em outra aba, o painel atualiza sozinho
+// mensagem nova chegando de outra aba atualiza o painel
 window.addEventListener("storage", evento => {
   if (evento.key === CHAVE_RECLAMACOES) atualizarPainelReclamacoes();
 });
