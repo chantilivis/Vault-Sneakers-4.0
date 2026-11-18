@@ -12,88 +12,162 @@
 </head>
 <body>
 
-    <!-- aviso no topo -->
     <div class="top-announcement">
         <p>⚡ FRETE GRÁTIS EM MODELOS SELECIONADOS | PARCELE EM ATÉ 10X ⚡</p>
     </div>
 
+    <div class="util-bar">
+        <a onclick="mudarPagina('home')">📍 Nossas lojas</a>
+        <a onclick="mudarPagina('franquia')">🏬 Seja um franqueado</a>
+        <a onclick="mudarPagina('contato')">💬 Fale conosco</a>
+    </div>
+
+    <!-- menu lateral -->
+    <div class="drawer-overlay" id="drawer-overlay" onclick="fecharMenu()"></div>
+    <aside class="drawer" id="drawer" aria-label="Menu">
+        <div class="drawer-head">
+            <strong>MENU</strong>
+            <button type="button" class="drawer-close" onclick="fecharMenu()" aria-label="Fechar menu">✕</button>
+        </div>
+        <a onclick="irParaCatalogo('todos')">Lançamentos</a>
+        <a onclick="irParaInedito()" class="drawer-inedito">Inéditos</a>
+        <a onclick="irParaCatalogo('Air Force')">Air Force</a>
+        <a onclick="irParaCatalogo('Jordan')">Jordan</a>
+        <a onclick="irParaCatalogo('Dunk')">Dunk</a>
+        <a onclick="irParaCatalogo('Air Max')">Air Max</a>
+        <a onclick="irParaCatalogo('Shox')">Shox</a>
+        <a onclick="irParaCatalogo('Casual')">Casual</a>
+        <a onclick="irParaCatalogo('outlet')" class="drawer-outlet">Outlet</a>
+        <hr>
+        <a onclick="mudarPagina('login')">Minha conta</a>
+        <a onclick="mudarPagina('carrinho')">Minha sacola</a>
+        <a onclick="mudarPagina('franquia')">Seja um franqueado</a>
+        <a onclick="mudarPagina('contato')">Fale conosco</a>
+    </aside>
+
     <header>
         <div class="header-main">
-            <!-- menu + busca -->
             <div class="header-left">
-                <div class="menu-btn" onclick="mudarPagina('home')">
+                <div class="menu-btn" onclick="abrirMenu()">
                     <span class="hamburger-icon">☰</span>
                     <span class="menu-text">MENU</span>
                 </div>
-
                 <div class="search-box-clean">
                     <span class="search-icon">🔍</span>
-                    <!-- A busca é ligada pelo script.js (sem onkeyup para não rodar 2x) -->
                     <input type="text" id="input-busca" placeholder="BUSCAR">
                 </div>
             </div>
 
-            <!-- logo -->
             <div class="logo" onclick="mudarPagina('home')">
                 <img src="logo.jpeg" alt="Logo Vault Sneakers" onerror="this.style.display='none'">
                 <span>Vault Sneakers</span>
             </div>
 
-            <!-- ícones da direita -->
             <div class="header-right">
                 <div class="header-icons-group">
-                    <a onclick="mudarPagina('home')" title="Favoritos" class="icon-link">♡</a>
-                    <a onclick="mudarPagina('login')" title="Minha Conta" class="icon-link">🙎‍♂️</a>
-                    <!-- sacola -->
+                    <a onclick="mostrarAviso('Favoritos em breve!')" title="Favoritos" class="icon-link">♡</a>
+                    <a onclick="mudarPagina('login')" title="Minha Conta" class="icon-link">👤</a>
                     <div class="cart-box" id="btn-carrinho" onclick="mudarPagina('carrinho')" title="Sacola">
-                        <span class="bag-icon">🛍️</span>
+                        <span class="bag-icon">🛒</span>
                         <span class="cart-badge" id="cart-badge">0</span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- links abaixo do logo -->
-        <nav class="header-nav">
-            <a onclick="mudarPagina('contato')" class="nav-text-link">FALE CONOSCO</a>
-            <a onclick="mudarPagina('home')" class="nav-text-link">NOSSAS LOJAS</a>
-            <a onclick="mudarPagina('home')" class="nav-btn-box">SEJA UM FRANQUEADO</a>
+
+        <nav class="cat-nav">
+            <a onclick="irParaCatalogo('todos')">Lançamentos</a>
+            <a onclick="irParaInedito()" class="cat-inedito">Inéditos</a>
+            <a onclick="irParaCatalogo('Air Force')">Air Force</a>
+            <a onclick="irParaCatalogo('Jordan')">Jordan</a>
+            <a onclick="irParaCatalogo('Dunk')">Dunk</a>
+            <a onclick="irParaCatalogo('Air Max')">Air Max</a>
+            <a onclick="irParaCatalogo('Shox')">Shox</a>
+            <a onclick="irParaCatalogo('Casual')">Casual</a>
+            <a onclick="irParaCatalogo('outlet')" class="cat-outlet">Outlet</a>
         </nav>
     </header>
 
     <!-- home -->
     <section id="home" class="page-section active">
-        <div class="hero">
-            <h1>O ESTILO QUE RODA COM VOCÊ</h1>
-            <p>Os tênis casuais mais irados das melhores marcas de Streetwear!</p>
-        </div>
 
-        <!-- carrossel (montado pelo script.js) -->
         <div class="carousel" id="carrossel" aria-label="Tênis em destaque"></div>
 
-        <div class="catalog-header">
-            <h2>Lançamentos & Destaques</h2>
-            <div class="filters">
-                <button class="filter-btn active" onclick="filtrarProdutos('todos', this)">Todos</button>
-                <button class="filter-btn" onclick="filtrarProdutos('Casual', this)">Casual</button>
-                <button class="filter-btn" onclick="filtrarProdutos('Esportivo', this)">Esportivo</button>
-                <button class="filter-btn" onclick="filtrarProdutos('Nike', this)">Nike</button>
-                <button class="filter-btn" onclick="filtrarProdutos('Air Force', this)">Air Force</button>
-                <button class="filter-btn" onclick="filtrarProdutos('Jordan', this)">Jordan</button>
-                <button class="filter-btn" onclick="filtrarProdutos('Air Max', this)">Air Max</button>
+        <div class="benefits">
+            <div class="benefit"><span>🚚</span><div><strong>Frete grátis</strong><small>em modelos selecionados</small></div></div>
+            <div class="benefit"><span>💳</span><div><strong>10x sem juros</strong><small>em todo o site</small></div></div>
+            <div class="benefit"><span>⚡</span><div><strong>Preço especial no PIX</strong><small>nos modelos em oferta</small></div></div>
+        </div>
+
+        <div class="trending">
+            <span class="trending-label">Mais procurados</span>
+            <a onclick="buscaRapida('Panda')">Air Force Panda</a>
+            <a onclick="buscaRapida('Jordan 4')">Air Jordan 4</a>
+            <a onclick="buscaRapida('Air Max 95')">Air Max 95</a>
+            <a onclick="buscaRapida('Air Max Dn')">Air Max Dn</a>
+            <a onclick="buscaRapida('Dunk Low')">Dunk Low</a>
+            <a onclick="buscaRapida('Shox R4')">Shox R4</a>
+        </div>
+
+        <div class="cat-section">
+            <h2 class="section-title">Navegue por <span>categorias</span></h2>
+            <div class="cat-tiles" id="cat-tiles"></div>
+        </div>
+
+        <div class="bestsellers" id="bestsellers">
+            <a class="best-banner" onclick="irParaCatalogo('todos')">
+                <img id="best-banner-img" src="" alt="Best seller Vault Sneakers">
+                <span class="best-quero">QUERO <b>→</b></span>
+            </a>
+            <div class="best-main">
+                <div class="best-head">
+                    <div>
+                        <h2 class="best-title">Best <strong>Seller</strong></h2>
+                        <p class="best-desc">Os favoritos que estão em alta. Explore os tênis mais vendidos da Vault e encontre os sneakers que estão fazendo história no streetwear.</p>
+                    </div>
+                    <div class="best-arrows">
+                        <button type="button" class="best-arrow" onclick="rolarBest(-1)" aria-label="Anterior">&#8249;</button>
+                        <button type="button" class="best-arrow" onclick="rolarBest(1)" aria-label="Próximo">&#8250;</button>
+                    </div>
+                </div>
+                <div class="best-track" id="best-track"></div>
             </div>
         </div>
 
-        <div class="products-grid" id="grid-produtos">
-            <!-- preenchido pelo script.js -->
+        <div class="ineditos" id="ineditos">
+            <div class="ineditos-head">
+                <span class="ineditos-tag">🔥 Exclusivo Vault</span>
+                <h2 class="ineditos-title">Tênis <span>Inéditos</span></h2>
+                <p class="ineditos-desc">Modelos que você não encontra em qualquer loja. Lançamentos exclusivos, em quantidade limitada. Garantiu o seu, é só correr!</p>
+            </div>
+            <div class="ineditos-grid" id="ineditos-grid"></div>
         </div>
+
+        <div class="promo-banners">
+            <a class="promo-banner promo-outlet" onclick="irParaCatalogo('outlet')">
+                <small>Ofertas imperdíveis</small>
+                <strong>OUTLET</strong>
+                <span>Tênis com desconto + preço especial no PIX →</span>
+            </a>
+            <a class="promo-banner promo-frete" onclick="irParaCatalogo('frete')">
+                <small>Modelos selecionados</small>
+                <strong>FRETE GRÁTIS</strong>
+                <span>Ver tênis com frete grátis →</span>
+            </a>
+        </div>
+
+        <div class="catalog-header" id="catalogo">
+            <h2>Lançamentos & Destaques</h2>
+            <div class="filters"></div>
+        </div>
+
+        <div class="products-grid" id="grid-produtos"></div>
     </section>
 
     <!-- detalhes do produto -->
     <section id="detalhes" class="page-section">
         <a class="back-link" onclick="mudarPagina('home')">← Voltar para o catálogo</a>
-        <div class="product-detail-container" id="detalhes-conteudo">
-            <!-- preenchido pelo script.js -->
-        </div>
+        <div class="product-detail-container" id="detalhes-conteudo"></div>
     </section>
 
     <!-- sacola -->
@@ -102,9 +176,7 @@
         <h2 class="cart-title">Sua Sacola de Compras</h2>
 
         <div class="cart-container">
-            <div class="cart-items" id="cart-items-list">
-                <!-- itens da sacola -->
-            </div>
+            <div class="cart-items" id="cart-items-list"></div>
 
             <div class="cart-summary">
                 <h3>Resumo do Pedido</h3>
@@ -140,6 +212,83 @@
                     <input type="password" required placeholder="********">
                 </div>
                 <button type="submit" class="form-btn">Entrar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- seja um franqueado -->
+    <section id="franquia" class="page-section">
+        <a class="back-link" onclick="mudarPagina('home')">← Voltar para a loja</a>
+
+        <div class="franq-hero">
+            <span class="franq-tag">🏬 Franquia Vault Sneakers</span>
+            <h2>Seja um <span>franqueado</span></h2>
+            <p>Leve a cultura sneaker para a sua cidade. Uma marca jovem, um catálogo que vende e todo o suporte para você abrir a sua loja Vault.</p>
+        </div>
+
+        <div class="franq-benefits">
+            <div class="franq-card"><span>👟</span><strong>Produto que vende</strong><small>Catálogo com os modelos mais desejados do streetwear.</small></div>
+            <div class="franq-card"><span>🎓</span><strong>Treinamento completo</strong><small>Operação, vendas e atendimento, do início ao fim.</small></div>
+            <div class="franq-card"><span>📣</span><strong>Marketing de apoio</strong><small>Materiais, campanhas e presença digital já prontos.</small></div>
+            <div class="franq-card"><span>🤝</span><strong>Suporte contínuo</strong><small>Time dedicado para acompanhar a sua loja.</small></div>
+        </div>
+
+        <div class="form-box form-box-contato form-box-franquia">
+            <h2>Quero ser franqueado</h2>
+            <p class="form-subtitle">Preencha o formulário e nossa equipe entrará em contato com você.</p>
+
+            <form id="form-franquia" novalidate>
+                <div class="input-group">
+                    <label for="fr-nome">Nome completo</label>
+                    <input type="text" id="fr-nome" name="nome" maxlength="100" placeholder="Seu nome" autocomplete="name">
+                    <small class="field-error"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="fr-email">E-mail</label>
+                    <input type="email" id="fr-email" name="email" maxlength="150" placeholder="seu@email.com" autocomplete="email">
+                    <small class="field-error"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="fr-telefone">Telefone / WhatsApp</label>
+                    <input type="tel" id="fr-telefone" name="telefone" maxlength="16" placeholder="(11) 99999-9999" autocomplete="tel">
+                    <small class="field-error"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="fr-cidade">Cidade / UF onde deseja abrir</label>
+                    <input type="text" id="fr-cidade" name="cidade" maxlength="80" placeholder="Ex.: Guarulhos / SP">
+                    <small class="field-error"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="fr-investimento">Capital disponível para investir</label>
+                    <select id="fr-investimento" name="investimento">
+                        <option value="Até R$ 50 mil">Até R$ 50 mil</option>
+                        <option value="R$ 50 mil a R$ 100 mil">R$ 50 mil a R$ 100 mil</option>
+                        <option value="R$ 100 mil a R$ 200 mil">R$ 100 mil a R$ 200 mil</option>
+                        <option value="Acima de R$ 200 mil">Acima de R$ 200 mil</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="fr-ponto">Já possui ponto comercial?</label>
+                    <select id="fr-ponto" name="ponto">
+                        <option value="Sim, já tenho">Sim, já tenho</option>
+                        <option value="Ainda não, estou procurando">Ainda não, estou procurando</option>
+                        <option value="Quero abrir apenas online">Quero abrir apenas online</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="fr-mensagem">Conte um pouco sobre você (opcional)</label>
+                    <textarea id="fr-mensagem" name="mensagem" rows="4" maxlength="1000" placeholder="Experiência com varejo, motivação, dúvidas..."></textarea>
+                </div>
+
+                <button type="submit" class="form-btn" id="btn-enviar-franquia">Enviar interesse</button>
+
+                <div id="franquia-status" class="form-status" role="status" aria-live="polite"></div>
             </form>
         </div>
     </section>
@@ -205,9 +354,8 @@
                     <small class="field-error"></small>
                 </div>
 
-
                 <button type="submit" class="form-btn" id="btn-enviar-contato">
-                   Enviar mensagem
+                    Enviar mensagem
                 </button>
 
                 <button
@@ -227,20 +375,49 @@
         </div>
     </section>
 
-    <!-- rodapé -->
     <footer>
-        <div class="footer-container">
+        <div class="footer-grid">
             <div class="footer-col">
-                <h3>Vault Sneakers</h3>
-                <p>A loja definitiva de sneakers e streetwear para quem busca exclusividade e atitude no visual.</p>
+                <h3>Produtos</h3>
+                <ul>
+                    <li><a onclick="irParaCatalogo('todos')">Novidades</a></li>
+                    <li><a onclick="irParaInedito()">Inéditos</a></li>
+                    <li><a onclick="irParaCatalogo('outlet')">Outlet</a></li>
+                    <li><a onclick="irParaCatalogo('frete')">Frete grátis</a></li>
+                </ul>
             </div>
             <div class="footer-col">
-                <h3>Navegação</h3>
+                <h3>Coleções</h3>
                 <ul>
-                    <li><a onclick="mudarPagina('home')">Lançamentos</a></li>
-                    <li><a onclick="mudarPagina('home')">Marcas</a></li>
-                    <li><a onclick="mudarPagina('contato')">Central de Ajuda</a></li>
+                    <li><a onclick="irParaCatalogo('Air Force')">Nike Air Force 1</a></li>
+                    <li><a onclick="irParaCatalogo('Jordan')">Air Jordan 4</a></li>
+                    <li><a onclick="irParaCatalogo('Air Max')">Nike Air Max</a></li>
+                    <li><a onclick="irParaCatalogo('Dunk')">Nike Dunk</a></li>
+                    <li><a onclick="irParaCatalogo('Shox')">Nike Shox</a></li>
                 </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Institucional</h3>
+                <ul>
+                    <li><a onclick="mudarPagina('home')">Nossas lojas</a></li>
+                    <li><a onclick="mudarPagina('franquia')">Seja um franqueado</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Ajuda</h3>
+                <ul>
+                    <li><a onclick="mudarPagina('contato')">Central de Ajuda</a></li>
+                    <li><a onclick="mudarPagina('contato')">Fale conosco</a></li>
+                    <li><a onclick="mudarPagina('carrinho')">Minha sacola</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Pagamento</h3>
+                <div class="pay-badges">
+                    <span>PIX</span><span>VISA</span><span>MASTER</span><span>ELO</span><span>BOLETO</span>
+                </div>
+                <h3 class="footer-sub">Compra segura</h3>
+                <div class="pay-badges"><span>🔒 SSL</span><span>✔ Site seguro</span></div>
             </div>
             <div class="footer-col">
                 <h3>Atendimento</h3>
